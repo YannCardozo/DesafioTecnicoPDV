@@ -1,0 +1,23 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "PdvNet - API V1",
+    "description": "Documentação gerada pelo Swagger",
+    "version": "v1"
+  },
+  "paths": {
+    "/teste": {
+      "get": {
+        "tags": [
+          "Teste"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": { }
+}

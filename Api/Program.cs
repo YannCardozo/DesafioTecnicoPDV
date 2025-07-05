@@ -1,24 +1,73 @@
+ï»¿using InfraData.Context;
+using InfraData.DAO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adiciona controllers
+var jwtSettings = builder.Configuration.GetSection("JWT");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Secret"]);
+
+
+var connectionString = builder.Configuration.GetConnectionString("Default");
+
+
+builder.Services.AddDbContext<Contexto>(opt =>
+    opt.UseSqlServer(connectionString));
+
+builder.Services
+    .AddIdentity<Usuario, IdentityRole<int>>(opts =>
+    {
+        opts.Password.RequireDigit = true;
+        opts.Password.RequireUppercase = true;
+        opts.Password.RequiredLength = 6;
+    }).AddEntityFrameworkStores<Contexto>().AddDefaultTokenProviders();
+
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = true;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings["ValidIssuer"],
+            ValidAudience = jwtSettings["ValidAudience"],
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+
+
+
+
+
 builder.Services.AddControllers();
 
-// Necessário para gerar descrição de endpoints
+
 builder.Services.AddEndpointsApiExplorer();
 
 
-string titulo_api = "PdvNet - API V1";
-
-// Configura o SwaggerGen
+const string ApiTitle = "PdvNet â€“ API V1";
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = titulo_api,
+        Title = ApiTitle,
         Version = "v1",
-        Description = "Documentação gerada pelo Swagger"
+        Description = "DocumentaÃ§Ã£o gerada pelo Swagger"
     });
 });
 
@@ -28,15 +77,15 @@ builder.Services.AddCors(o => o.AddDefaultPolicy(p =>
      .AllowAnyMethod()
      .AllowAnyHeader()));
 
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    // Habilita middleware do Swagger JSON e UI
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", titulo_api);
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", ApiTitle);
         c.RoutePrefix = string.Empty;
     });
 }
@@ -44,6 +93,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();

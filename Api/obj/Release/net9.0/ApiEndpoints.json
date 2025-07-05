@@ -1,0 +1,12 @@
+[
+  {
+    "ContainingType": "Api.Controllers.TesteController",
+    "Method": "Index",
+    "RelativePath": "teste",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
