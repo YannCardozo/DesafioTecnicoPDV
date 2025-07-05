@@ -42,7 +42,12 @@ namespace InfraData.Repository.Configuration
                 .Property(o => o.Status)
                 .HasColumnName("Status")
                 .HasColumnType("varchar")
-                .HasMaxLength(50);
+                .HasMaxLength(20);
+
+            builder
+                .Property(o => o.ValorLocacao)
+                .HasColumnName("ValorLocacao")
+                .HasColumnType("decimal");
 
             //entidade base
 

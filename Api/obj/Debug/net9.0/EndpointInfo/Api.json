@@ -6,10 +6,99 @@
     "version": "v1"
   },
   "paths": {
-    "/api/Usuarios/Login": {
+    "/api/Aluguel/GetAll": {
+      "get": {
+        "tags": [
+          "Aluguel"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Aluguel/Get/{id}": {
+      "get": {
+        "tags": [
+          "Aluguel"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Aluguel/Create": {
       "post": {
         "tags": [
-          "Usuarios"
+          "Aluguel"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AluguelDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AluguelDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AluguelDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Aluguel/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Aluguel"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auth/Login": {
+      "post": {
+        "tags": [
+          "Auth"
         ],
         "requestBody": {
           "content": {
@@ -37,7 +126,193 @@
         }
       }
     },
-    "/api/Usuarios/Registrar": {
+    "/api/Imovel/GetAll": {
+      "get": {
+        "tags": [
+          "Imovel"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Imovel/Get/{id}": {
+      "get": {
+        "tags": [
+          "Imovel"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Imovel/Create": {
+      "post": {
+        "tags": [
+          "Imovel"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImovelDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImovelDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImovelDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Imovel/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Imovel"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Perfil/GetAll": {
+      "get": {
+        "tags": [
+          "Perfil"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Perfil/Create": {
+      "post": {
+        "tags": [
+          "Perfil"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PerfilDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PerfilDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PerfilDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Perfil/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Perfil"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Perfil/AssociarPerfil": {
+      "post": {
+        "tags": [
+          "Perfil"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PerfilDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PerfilDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PerfilDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuarios/Create": {
       "post": {
         "tags": [
           "Usuarios"
@@ -68,7 +343,7 @@
         }
       }
     },
-    "/api/Usuarios/ListarUsuarios": {
+    "/api/Usuarios/GetAll": {
       "get": {
         "tags": [
           "Usuarios"
@@ -80,8 +355,8 @@
         }
       }
     },
-    "/api/Usuarios/DeletarUsuario/{id}": {
-      "delete": {
+    "/api/Usuarios/Get/{id}": {
+      "get": {
         "tags": [
           "Usuarios"
         ],
@@ -103,50 +378,7 @@
         }
       }
     },
-    "/api/Usuarios/ListarPerfis": {
-      "get": {
-        "tags": [
-          "Usuarios"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Usuarios/CriarPerfil": {
-      "post": {
-        "tags": [
-          "Usuarios"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PerfilDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PerfilDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PerfilDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Usuarios/DeletarPerfil/{id}": {
+    "/api/Usuarios/Delete/{id}": {
       "delete": {
         "tags": [
           "Usuarios"
@@ -162,37 +394,6 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Usuarios/AssociarPerfil": {
-      "post": {
-        "tags": [
-          "Usuarios"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PerfilDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PerfilDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PerfilDTO"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -203,6 +404,68 @@
   },
   "components": {
     "schemas": {
+      "AluguelDTO": {
+        "required": [
+          "dataInicio",
+          "imovelId",
+          "usuarioId",
+          "valorLocacao"
+        ],
+        "type": "object",
+        "properties": {
+          "imovelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usuarioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "valorLocacao": {
+            "type": "number",
+            "format": "double"
+          },
+          "dataInicio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataTermino": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ImovelDTO": {
+        "required": [
+          "endereco",
+          "status",
+          "valorLocacao"
+        ],
+        "type": "object",
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "nullable": true
+          },
+          "endereco": {
+            "maxLength": 155,
+            "minLength": 0,
+            "type": "string"
+          },
+          "status": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "valorLocacao": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginDTO": {
         "type": "object",
         "properties": {

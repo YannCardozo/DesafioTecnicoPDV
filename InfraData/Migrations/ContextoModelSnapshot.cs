@@ -95,7 +95,7 @@ namespace InfraData.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(50)
+                        .HasMaxLength(20)
                         .HasColumnType("varchar")
                         .HasColumnName("Status");
 
@@ -103,6 +103,10 @@ namespace InfraData.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar")
                         .HasColumnName("Tipo");
+
+                    b.Property<decimal>("ValorLocacao")
+                        .HasColumnType("decimal")
+                        .HasColumnName("ValorLocacao");
 
                     b.HasKey("Id")
                         .HasName("pk_Imovel");

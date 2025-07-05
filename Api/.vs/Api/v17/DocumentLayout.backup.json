@@ -3,8 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|c:\\users\\windows 11\\desktop\\repo\\desafiotecnicopdv\\api\\controllers\\aluguelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|solutionrelative:controllers\\aluguelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|c:\\users\\windows 11\\desktop\\repo\\desafiotecnicopdv\\api\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|solutionrelative:controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE2460A0-6D11-E057-5BF9-EC9474DC8C8C}|..\\General\\General.csproj|c:\\users\\windows 11\\desktop\\repo\\desafiotecnicopdv\\general\\dto\\aluguel\\alugueldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA10DEAB-3B6C-BA60-9AC9-0BA90CBE809C}|..\\InfraData\\InfraData.csproj|c:\\users\\windows 11\\desktop\\repo\\desafiotecnicopdv\\infradata\\dao\\aluguel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|c:\\users\\windows 11\\desktop\\repo\\desafiotecnicopdv\\api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|c:\\users\\windows 11\\desktop\\repo\\desafiotecnicopdv\\api\\controllers\\imovelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|solutionrelative:controllers\\imovelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +32,84 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AluguelDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\General\\DTO\\Aluguel\\AluguelDTO.cs",
+              "RelativeDocumentMoniker": "..\\General\\DTO\\Aluguel\\AluguelDTO.cs",
+              "ToolTip": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\General\\DTO\\Aluguel\\AluguelDTO.cs",
+              "RelativeToolTip": "..\\General\\DTO\\Aluguel\\AluguelDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T21:33:04.174Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Aluguel.cs",
+              "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\InfraData\\DAO\\Aluguel.cs",
+              "RelativeDocumentMoniker": "..\\InfraData\\DAO\\Aluguel.cs",
+              "ToolTip": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\InfraData\\DAO\\Aluguel.cs",
+              "RelativeToolTip": "..\\InfraData\\DAO\\Aluguel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T21:31:49.315Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T20:47:23.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AluguelController.cs",
+              "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\AluguelController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AluguelController.cs",
+              "ToolTip": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\AluguelController.cs",
+              "RelativeToolTip": "Controllers\\AluguelController.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAGkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T20:47:15.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ImovelController.cs",
+              "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\ImovelController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ImovelController.cs",
+              "ToolTip": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\ImovelController.cs",
+              "RelativeToolTip": "Controllers\\ImovelController.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAIwHAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T20:47:07.881Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "UsuariosController.cs",
               "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\UsuariosController.cs",
               "RelativeDocumentMoniker": "Controllers\\UsuariosController.cs",
               "ToolTip": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\UsuariosController.cs",
               "RelativeToolTip": "Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAowJ8AAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAAAJIAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-05T02:34:47.231Z",
+              "WhenOpened": "2025-07-05T20:37:19.827Z",
               "EditorCaption": ""
             }
           ]

@@ -1,40 +1,24 @@
 [
   {
-    "ContainingType": "Api.Controllers.UsuariosController",
-    "Method": "AssociarPerfil",
-    "RelativePath": "api/Usuarios/AssociarPerfil",
+    "ContainingType": "Api.Controllers.AluguelController",
+    "Method": "CadastrarAluguel",
+    "RelativePath": "api/Aluguel/Create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "Model",
-        "Type": "General.DTO.Usuario.PerfilDTO",
+        "Type": "General.DTO.Aluguel.AluguelDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.Controllers.UsuariosController",
-    "Method": "CriarPerfil",
-    "RelativePath": "api/Usuarios/CriarPerfil",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Model",
-        "Type": "General.DTO.Usuario.PerfilDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Api.Controllers.UsuariosController",
-    "Method": "DeletarPerfil",
-    "RelativePath": "api/Usuarios/DeletarPerfil/{id}",
+    "ContainingType": "Api.Controllers.AluguelController",
+    "Method": "DeletarAluguel",
+    "RelativePath": "api/Aluguel/Delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -48,10 +32,10 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.Controllers.UsuariosController",
-    "Method": "DeletarUsuario",
-    "RelativePath": "api/Usuarios/DeletarUsuario/{id}",
-    "HttpMethod": "DELETE",
+    "ContainingType": "Api.Controllers.AluguelController",
+    "Method": "ObterAluguel",
+    "RelativePath": "api/Aluguel/Get/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -64,9 +48,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.Controllers.UsuariosController",
-    "Method": "ListarPerfis",
-    "RelativePath": "api/Usuarios/ListarPerfis",
+    "ContainingType": "Api.Controllers.AluguelController",
+    "Method": "ListarAlugueis",
+    "RelativePath": "api/Aluguel/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -74,35 +58,141 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.Controllers.UsuariosController",
-    "Method": "ListarUsuarios",
-    "RelativePath": "api/Usuarios/ListarUsuarios",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Api.Controllers.UsuariosController",
+    "ContainingType": "Api.Controllers.AuthController",
     "Method": "Login",
-    "RelativePath": "api/Usuarios/Login",
+    "RelativePath": "api/Auth/Login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "Model",
-        "Type": "General.DTO.Usuario.LoginDTO",
+        "Type": "General.DTO.Auth.LoginDTO",
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.ImovelController",
+    "Method": "CadastrarImovel",
+    "RelativePath": "api/Imovel/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Model",
+        "Type": "General.DTO.Imovel.ImovelDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.ImovelController",
+    "Method": "DeletarImovel",
+    "RelativePath": "api/Imovel/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.ImovelController",
+    "Method": "ObterImovel",
+    "RelativePath": "api/Imovel/Get/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.ImovelController",
+    "Method": "ListarImoveis",
+    "RelativePath": "api/Imovel/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.PerfilController",
+    "Method": "AssociarPerfil",
+    "RelativePath": "api/Perfil/AssociarPerfil",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Model",
+        "Type": "General.DTO.Perfil.PerfilDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.PerfilController",
+    "Method": "CriarPerfil",
+    "RelativePath": "api/Perfil/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Model",
+        "Type": "General.DTO.Perfil.PerfilDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.PerfilController",
+    "Method": "DeletarPerfil",
+    "RelativePath": "api/Perfil/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.PerfilController",
+    "Method": "ListarPerfis",
+    "RelativePath": "api/Perfil/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
     "ContainingType": "Api.Controllers.UsuariosController",
     "Method": "Registrar",
-    "RelativePath": "api/Usuarios/Registrar",
+    "RelativePath": "api/Usuarios/Create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -113,6 +203,48 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.UsuariosController",
+    "Method": "DeletarUsuario",
+    "RelativePath": "api/Usuarios/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.UsuariosController",
+    "Method": "ObterUsuario",
+    "RelativePath": "api/Usuarios/Get/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.UsuariosController",
+    "Method": "ListarUsuarios",
+    "RelativePath": "api/Usuarios/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

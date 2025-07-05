@@ -12,6 +12,7 @@ namespace InfraData.DAO
         //casa apartamento etc
         public string? Tipo { get; set; }
         public string Endereco { get; set; }
+        public decimal ValorLocacao { get; set; }
         //disponivel ou alugado
         public string Status { get; set; }
 

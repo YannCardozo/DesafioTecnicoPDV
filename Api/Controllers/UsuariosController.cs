@@ -22,88 +22,16 @@ namespace Api.Controllers
         //PERFIS, LOGIN , REGISTRO.
         private readonly Contexto _contextoDB;
         private readonly UserManager<Usuario> _userManager;
-        private readonly SignInManager<Usuario> _signInManager;
-        private readonly IConfiguration _configuraciones;
-        public UsuariosController(Contexto contexto, UserManager<Usuario> userManager,
-                                    SignInManager<Usuario> login, IConfiguration configuraciones)
+        public UsuariosController(Contexto contexto, UserManager<Usuario> userManager)
         {
             _contextoDB = contexto;
             _userManager = userManager;
-            _signInManager = login;
-            _configuraciones = configuraciones;
         }
 
-        [AllowAnonymous]
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO Model)
-        {
-            try
-            {
-                Usuario usuariolocalizado = null;
-
-                if (!string.IsNullOrWhiteSpace(Model.CPF))
-                {
-                    usuariolocalizado = await _userManager.Users.FirstOrDefaultAsync(u => u.CPF == Model.CPF);
-                }
-                else if (!string.IsNullOrWhiteSpace(Model.Email))
-                {
-                    usuariolocalizado = await _userManager.FindByEmailAsync(Model.Email);
-                } 
-
-
-                if (usuariolocalizado == null)
-                {
-                    return NotFound("Usuário não encontrado.");
-                }
-
-                var result = await _signInManager.PasswordSignInAsync(
-                    usuariolocalizado.UserName,
-                    Model.Senha,
-                    isPersistent: false,
-                    lockoutOnFailure: false);
-
-
-                if (result.Succeeded)
-                {
-                    var roles = await _userManager.GetRolesAsync(usuariolocalizado);
-
-
-                    var authClaims = new List<Claim>
-                    {
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim("Usuario", usuariolocalizado.UserName),
-                        new Claim("CPF", usuariolocalizado.CPF),
-                        new Claim("Perfil", roles.First())
-                    };
-
-
-                    var token = new JwtSecurityToken(
-                        issuer: _configuraciones["JWT:ValidIssuer"],
-                        audience: _configuraciones["JWT:ValidAudience"],
-                        claims: authClaims,
-                        expires: DateTime.UtcNow.AddHours(2),
-                        signingCredentials: new SigningCredentials(
-                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuraciones["JWT:Secret"])),
-                            SecurityAlgorithms.HmacSha256)
-                    );
-
-                    return Ok(new
-                    {
-                        token = new JwtSecurityTokenHandler().WriteToken(token),
-                        expiration = token.ValidTo
-                    });
-                }
-
-                return Unauthorized("Dados de Login Incorretos.");
-            }
-            catch(Exception ex)
-            {
-                return BadRequest($@"Erro ao logar: {ex.Message}");
-            }
-        }
+        
 
         [AllowAnonymous]
-        [HttpPost("Registrar")]
+        [HttpPost("Create")]
         public async Task<IActionResult> Registrar([FromBody] RegistrarDTO Model)
         {
             try
@@ -159,11 +87,12 @@ namespace Api.Controllers
         }
         //alterar para Authorization forçando o estado de autenticação do usuario para LOGADO.
         [AllowAnonymous]
-        [HttpGet("ListarUsuarios")]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> ListarUsuarios()
         {
             try
             {
+                //utilizando a LINQ para retornar os usuarios do banco com seus respectivos PERFIS vindo da tabela userroles do identity.
                 var usuarioscomperfis = await _contextoDB.Users
                     .Select(u => new
                     {
@@ -190,8 +119,48 @@ namespace Api.Controllers
             }
         }
 
+
         [AllowAnonymous]
-        [HttpDelete("DeletarUsuario/{id}")]
+        [HttpGet("Get/{id}")]
+        public async Task<IActionResult> ObterUsuario(int id)
+        {
+            try
+            {
+                //utilizando a LINQ para retornar os usuarios do banco com seus respectivos PERFIS vindo da tabela userroles do identity.
+                var usuariocomperfil = await _contextoDB.Users
+                    .Where(u => u.Id == id)
+                    .Select(u => new
+                    {
+                        u.Id,
+                        u.UserName,
+                        u.Email,
+                        u.CPF,
+                        u.Telefone,
+                        Perfis = _contextoDB.UserRoles
+                            .Where(ur => ur.UserId == u.Id)
+                            .Join(_contextoDB.Roles,
+                                  ur => ur.RoleId,
+                                  r => r.Id,
+                                  (ur, r) => r.Name)
+                            .ToList()
+                    })
+                    .FirstOrDefaultAsync();
+
+                if (usuariocomperfil == null)
+                {
+                    return NotFound("Usuário não encontrado.");
+                }
+
+                return Ok(usuariocomperfil);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao OBTER USUÁRIO: {ex.Message}");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletarUsuario(int id)
         {
             try
@@ -213,134 +182,7 @@ namespace Api.Controllers
             }
 
         }
-
-
-
-
-        //-------------------------------------------------PERFIS----------------------------------------------------
-
-        //alterar para Authorization forçando o estado de autenticação do usuario para LOGADO.
-        [AllowAnonymous]
-        [HttpGet("ListarPerfis")]
-        public async Task<IActionResult> ListarPerfis()
-        {
-            try
-            {
-                var PerfisCriados = _contextoDB.Roles.ToList();
-                return Ok(PerfisCriados);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($@"Erro ao LISTAR PERFIS: {ex.Message}");
-            }
-        }
-
-
-
-        //alterar para Authorization forçando o estado de autenticação do usuario para LOGADO.
-        [AllowAnonymous]
-        [HttpPost("CriarPerfil")]
-        public async Task<IActionResult> CriarPerfil([FromBody] PerfilDTO Model)
-        {
-            try
-            {
-                if(string.IsNullOrEmpty(Model.Perfil))
-                {
-                    return BadRequest("Perfil está vazio.");
-                }
-
-                var perfilExistente = await _contextoDB.Roles.FirstOrDefaultAsync(p => p.Name == Model.Perfil);
-                if(perfilExistente != null)
-                {
-                    return Conflict("Perfil já cadastrado.");
-                }
-
-
-                var novoPerfil = new IdentityRole<int>
-                {
-                    Name = Model.Perfil,
-                    NormalizedName = Model.Perfil.ToUpper()
-                };
-
-                var resultado = await _contextoDB.Roles.AddAsync(novoPerfil);
-
-                await _contextoDB.SaveChangesAsync();
-
-                return Ok(@$"Perfil: {Model.Perfil} cadastrado com sucesso.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($@"Erro ao Criar PERFIL: {ex.Message}");
-            }
-        }
-
-
-        [AllowAnonymous]
-        [HttpDelete("DeletarPerfil/{id}")]
-        public async Task<IActionResult> DeletarPerfil(int id)
-        {
-            try
-            {
-                var perfil = await _contextoDB.Roles.FirstOrDefaultAsync(p => p.Id == id);
-                if (perfil == null)
-                {
-                    return NotFound("Perfil não encontrado.");
-                }
-                var userRoles = await _contextoDB.UserRoles.Where(ur => ur.RoleId == id).ToListAsync();
-                _contextoDB.UserRoles.RemoveRange(userRoles);
-                _contextoDB.Roles.Remove(perfil);
-                await _contextoDB.SaveChangesAsync();
-                return Ok("Perfil deletado com sucesso!");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($@"Erro ao DELETAR PERFIL: {ex.Message}");
-            }
-        }
-
-        //alterar para Authorization forçando o estado de autenticação do usuario para LOGADO.
-        [AllowAnonymous]
-        [HttpPost("AssociarPerfil")]
-        public async Task<IActionResult> AssociarPerfil([FromBody] PerfilDTO Model)
-        {
-            try
-            {
-                Usuario verificausuario = null;
-                if (string.IsNullOrEmpty(Model.CPF))
-                {
-                    verificausuario = await _userManager.FindByEmailAsync(Model.Email);
-                }
-                else if(string.IsNullOrEmpty(Model.Email))
-                {
-                    verificausuario = await _userManager.Users.FirstOrDefaultAsync(u => u.CPF == Model.CPF);
-                }
-                
-                if(verificausuario == null)
-                {
-                    return BadRequest($@"Erro ao ASSOCIAR PERFIL: USUÁRIO NÃO ENCONTRADO.");
-                }
-
-                var verificaperfil = await _contextoDB.Roles.FirstOrDefaultAsync(p => p.Name == Model.Perfil);
-                if(verificaperfil == null)
-                {
-                    return BadRequest($@"Erro ao ASSOCIAR PERFIL: PERFIL NÃO ENCONTRADO.");
-                }
-
-
-                await _contextoDB.UserRoles.AddAsync(new IdentityUserRole<int>
-                {
-                    UserId = verificausuario.Id,
-                    RoleId = verificaperfil.Id
-                });
-
-                await _contextoDB.SaveChangesAsync();
-                return Ok("Perfil Associado corretamente ao Usuário.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($@"Erro ao Associar Perfil do Usuario: {ex.Message}");
-            }
-        }
+        
 
     }
 }
