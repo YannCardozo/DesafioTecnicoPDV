@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Components\LoadingOverlay.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Components\SidebarMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Components\Spinner.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Components\SpinnerOverlay.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Views\FormPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\ImoveisView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Novo Perfil",
+    "Projects": [
+      {
+        "Path": "Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\PdvNetDesktop\\PdvNetDesktop.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

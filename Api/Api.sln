@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "General", "..\General\Gener
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfraData", "..\InfraData\InfraData.csproj", "{EA10DEAB-3B6C-BA60-9AC9-0BA90CBE809C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdvNetDesktop", "..\PdvNetDesktop\PdvNetDesktop.csproj", "{E7566C11-9EFA-B8FB-4633-D79AA9BF23CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EA10DEAB-3B6C-BA60-9AC9-0BA90CBE809C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA10DEAB-3B6C-BA60-9AC9-0BA90CBE809C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA10DEAB-3B6C-BA60-9AC9-0BA90CBE809C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7566C11-9EFA-B8FB-4633-D79AA9BF23CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7566C11-9EFA-B8FB-4633-D79AA9BF23CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7566C11-9EFA-B8FB-4633-D79AA9BF23CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7566C11-9EFA-B8FB-4633-D79AA9BF23CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
