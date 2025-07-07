@@ -1,4 +1,5 @@
 ﻿using General.DTO.Imovel;
+using General.Response.Imovel;
 using InfraData.Context;
 using InfraData.DAO;
 using Microsoft.AspNetCore.Authorization;
@@ -61,13 +62,26 @@ namespace Api.Controllers
         {
             try
             {
-
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                if (string.IsNullOrEmpty(Model.Endereco))
+                {
+                    return BadRequest("É necessário Preencher o Endereco para CADASTRAR IMOVEL.");
+                }
+                if (string.IsNullOrEmpty(Model.Endereco))
+                {
+                    return BadRequest("É necessário Preencher o Endereco para CADASTRAR IMOVEL.");
+                }
                 Imoveis NovoImovel = new()
                 {
                     Tipo = Model.Tipo,
                     Endereco = Model.Endereco,
                     Status = Model.Status,
-                    ValorLocacao = Model.ValorLocacao
+                    ValorLocacao = Model.ValorLocacao,
+                    DataCriacao = DateTime.Now,
+                    DataAtualizacao = DateTime.Now
                 };
 
 
@@ -82,6 +96,42 @@ namespace Api.Controllers
                 return BadRequest($"Erro ao listar imóveis: {ex.Message}");
             }
         }
+
+        [Authorize]
+        [HttpPut("Update")]
+        public async Task<IActionResult> AtualizarImovel([FromBody] ImovelResponse Model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var verificaImovelExistente = await _contextoDB.Imoveis.FirstOrDefaultAsync(i => i.Id == Model.id);
+                if(verificaImovelExistente == null)
+                {
+                    return NotFound("Imovel nao encontrado para ATUALIZAR.");
+                }
+
+                verificaImovelExistente.Tipo = Model.Tipo;
+                verificaImovelExistente.Endereco = Model.Endereco;
+                verificaImovelExistente.Status = Model.Status;
+                verificaImovelExistente.ValorLocacao = Model.ValorLocacao;
+                verificaImovelExistente.DataCriacao = verificaImovelExistente.DataCriacao;
+                verificaImovelExistente.DataAtualizacao = DateTime.Now;
+
+                _contextoDB.Imoveis.Update(verificaImovelExistente);
+                await _contextoDB.SaveChangesAsync();
+
+                return Ok("Imovel ATUALIZADO com sucesso!");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar imóveis: {ex.Message}");
+            }
+        }
+
         [AllowAnonymous]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletarImovel(int id)

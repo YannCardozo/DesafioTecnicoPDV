@@ -21,7 +21,7 @@ namespace PdvNetDesktop.Views
         private void InitializeComponent()
         {
             // janela principal
-            ClientSize = new Size(1080, 640);
+            ClientSize = new Size(1666, 900);
             StartPosition = FormStartPosition.CenterScreen;
 
             // 1) menu lateral
@@ -68,7 +68,7 @@ namespace PdvNetDesktop.Views
                 SidebarMenu.MenuOption.Imovel => new ImoveisView(),
                 //SidebarMenu.MenuOption.Aluguel => new AluguelView(),
                 //SidebarMenu.MenuOption.Perfis => new PerfisView(),
-                //SidebarMenu.MenuOption.Usuarios => new UsuariosView(),
+                SidebarMenu.MenuOption.Usuarios => new UsuariosView(),
                 _ => new UserControl()
             };
 

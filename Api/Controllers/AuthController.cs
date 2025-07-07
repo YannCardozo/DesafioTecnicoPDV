@@ -81,7 +81,7 @@ namespace Api.Controllers
                         issuer: _configuraciones["JWT:ValidIssuer"],
                         audience: _configuraciones["JWT:ValidAudience"],
                         claims: authClaims,
-                        expires: DateTime.UtcNow.AddHours(-1),
+                        expires: DateTime.UtcNow.AddHours(2),
                         signingCredentials: new SigningCredentials(
                             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuraciones["JWT:Secret"])),
                             SecurityAlgorithms.HmacSha256)

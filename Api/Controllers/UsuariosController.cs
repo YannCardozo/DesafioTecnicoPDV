@@ -1,4 +1,6 @@
 ﻿using General.DTO.Usuario;
+using General.Response.Imovel;
+using General.Response.Usuario;
 using InfraData.Context;
 using InfraData.DAO;
 using Microsoft.AspNetCore.Authorization;
@@ -22,10 +24,12 @@ namespace Api.Controllers
         //PERFIS, LOGIN , REGISTRO.
         private readonly Contexto _contextoDB;
         private readonly UserManager<Usuario> _userManager;
-        public UsuariosController(Contexto contexto, UserManager<Usuario> userManager)
+        private readonly SignInManager<Usuario> _signInManager;
+        public UsuariosController(Contexto contexto, UserManager<Usuario> userManager, SignInManager<Usuario> loginManager)
         {
             _contextoDB = contexto;
             _userManager = userManager;
+            _signInManager = loginManager;
         }
 
         
@@ -65,7 +69,7 @@ namespace Api.Controllers
                 NovoUsuario.Email = Model.Email;
                 NovoUsuario.CPF = Model.CPF;
                 NovoUsuario.UserName = Model.CPF;
-                NovoUsuario.Nome = Model.Email;
+                NovoUsuario.Nome = Model.Nome;
                 NovoUsuario.Telefone = Model.Telefone;
 
                 var resultado_criado = await _userManager.CreateAsync(NovoUsuario, Model.Senha);
@@ -85,6 +89,67 @@ namespace Api.Controllers
                 return BadRequest($@"Erro ao REGISTRAR USUARIO: {ex.Message}");
             }
         }
+
+        [Authorize]
+        [HttpPut("Update")]
+        public async Task<IActionResult> AtualizarUsuario([FromBody] UsuarioResponse model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // 1) Busca o usuário existente
+            var usuario = await _contextoDB.Users.FirstOrDefaultAsync(u => u.Id == model.id);
+            if (usuario == null)
+            {
+                return NotFound("Usuário não encontrado para atualizar.");
+            }
+
+
+            // 2) Se veio senha nova, faz a troca
+            if (!string.IsNullOrEmpty(model.Senha))
+            {
+                // Para ChangePasswordAsync você precisa da senha antiga. Se não tiver, 
+                // pode usar ResetPasswordAsync com um token.
+                // Exemplo: reset com token
+                var token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
+                var changePassResult = await _userManager.ResetPasswordAsync(usuario, token, model.Senha);
+                if (!changePassResult.Succeeded)
+                    return BadRequest(string.Join("; ", changePassResult.Errors.Select(e => e.Description)));
+            }
+
+            // 3) Se veio perfil novo, atualiza roles
+            if (!string.IsNullOrEmpty(model.Perfil))
+            {
+                // obtém roles atuais
+                var rolesAtuais = await _userManager.GetRolesAsync(usuario);
+                // remove cada um
+                if (rolesAtuais.Count > 0)
+                {
+                    var removeResult = await _userManager.RemoveFromRolesAsync(usuario, rolesAtuais);
+                    if (!removeResult.Succeeded)
+                        return BadRequest(string.Join("; ", removeResult.Errors.Select(e => e.Description)));
+                }
+                // adiciona o novo perfil
+                var addResult = await _userManager.AddToRoleAsync(usuario, model.Perfil);
+                if (!addResult.Succeeded)
+                    return BadRequest(string.Join("; ", addResult.Errors.Select(e => e.Description)));
+            }
+
+            // 4) Atualiza demais campos
+            usuario.Email = model.Email;
+            usuario.CPF = model.CPF;
+            usuario.Nome = model.Nome;
+            usuario.Telefone = model.Telefone;
+
+            // 5) Persiste as alterações
+            var updateResult = await _userManager.UpdateAsync(usuario);
+            if (!updateResult.Succeeded)
+                return BadRequest(string.Join("; ", updateResult.Errors.Select(e => e.Description)));
+
+            return Ok("Usuário atualizado com sucesso!");
+        }
+
+
         //alterar para Authorization forçando o estado de autenticação do usuario para LOGADO.
         [AllowAnonymous]
         [HttpGet("GetAll")]
@@ -98,6 +163,7 @@ namespace Api.Controllers
                     {
                         u.Id,
                         u.UserName,
+                        u.Nome,
                         u.Email,
                         u.CPF,
                         u.Telefone,

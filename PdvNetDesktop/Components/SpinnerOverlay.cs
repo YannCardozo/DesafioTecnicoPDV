@@ -14,7 +14,6 @@ namespace PdvNetDesktop.Components
         public SpinnerOverlay(Control parent)
         {
             Dock = DockStyle.Fill;
-            BackColor = Color.FromArgb(120, Color.Gray);
             Visible = false;
 
             spinner = new Spinner { Size = new Size(50, 50), Anchor = AnchorStyles.None };

@@ -132,6 +132,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Api.Controllers.ImovelController",
+    "Method": "AtualizarImovel",
+    "RelativePath": "api/Imovel/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Model",
+        "Type": "General.Response.Imovel.ImovelResponse",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Api.Controllers.PerfilController",
     "Method": "AssociarPerfil",
     "RelativePath": "api/Perfil/AssociarPerfil",
@@ -245,6 +261,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.UsuariosController",
+    "Method": "AtualizarUsuario",
+    "RelativePath": "api/Usuarios/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "General.Response.Usuario.UsuarioResponse",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]
