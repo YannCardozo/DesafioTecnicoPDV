@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace General.Response.Usuario
 {
-    public class PerfilResponse
+    public class UsuarioPerfilResponse
     {
         [JsonPropertyName("Name")]
         public string Perfil { get; set; }

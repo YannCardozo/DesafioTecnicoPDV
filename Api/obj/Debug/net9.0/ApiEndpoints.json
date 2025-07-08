@@ -58,6 +58,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Api.Controllers.AluguelController",
+    "Method": "AtualizarAluguel",
+    "RelativePath": "api/Aluguel/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "General.Response.Aluguel.AluguelResponse",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Api.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/Login",
@@ -203,6 +219,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.Controllers.PerfilController",
+    "Method": "AtualizarPerfil",
+    "RelativePath": "api/Perfil/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Model",
+        "Type": "General.Response.Perfil.PerfilResponse",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

@@ -1,4 +1,6 @@
-﻿using General.Response.Usuario;
+﻿using General.DTO.Usuario;
+using General.Response.Usuario;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PdvNetDesktop.Sessao;
 using PdvNetDesktop.Utilitarios;
@@ -13,7 +15,6 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.AspNetCore.Mvc;
 
 namespace PdvNetDesktop.Views
 {
@@ -21,19 +22,13 @@ namespace PdvNetDesktop.Views
     {
         /* ───────── dados ───────── */
         private readonly BindingList<UsuarioResponse> _usuarios = new();
-        private List<string> PERFIS = new();          // nomes dos perfis
+        private List<string> PERFIS = new();   // nomes dos perfis
 
         public UsuariosView()
         {
             InitializeComponent();
-
-            /* buscas assíncronas que não travam a UI */
-            Load += async (_, _) =>
-            {
-                PERFIS = await ObterPerfis();         // ← agora sem .Result / .GetAwaiter()
-            };
-
-            _ = CarregarAsync();                      // carga inicial da grid
+            Load += async (_, _) => PERFIS = await ObterPerfis();
+            _ = CarregarAsync();
         }
 
         /* ───────── CONTROLES ───────── */
@@ -57,21 +52,18 @@ namespace PdvNetDesktop.Views
             Dock = DockStyle.Fill;
             BackColor = Color.White;
 
-            /* painel base */
             panelCentral = new Panel { Dock = DockStyle.Fill, BackColor = Color.White };
             Controls.Add(panelCentral);
 
-            /* título */
             lblTitulo = new Label
             {
-                Text = "Lista de Usuários",
+                Text = "Lista de Locatários",
                 AutoSize = true,
                 Font = new Font("Segoe UI", 18, FontStyle.Bold),
                 ForeColor = Color.Black
             };
             panelCentral.Controls.Add(lblTitulo);
 
-            /* ToolStrip */
             strip = new ToolStrip
             {
                 Dock = DockStyle.None,
@@ -100,7 +92,6 @@ namespace PdvNetDesktop.Views
 
             panelCentral.Controls.Add(strip);
 
-            /* grid */
             dgv = new DoubleBufferedGrid
             {
                 ReadOnly = true,
@@ -121,13 +112,11 @@ namespace PdvNetDesktop.Views
             panelCentral.Controls.Add(dgv);
             CriarColunas();
 
-            /* status strip */
             status = new StatusStrip { BackColor = Color.Gainsboro, Dock = DockStyle.Bottom };
             lblTotal = new ToolStripStatusLabel("0 registro(s)");
             status.Items.Add(lblTotal);
             Controls.Add(status);
 
-            /* overlay loading */
             pnlLoad = new Panel { Dock = DockStyle.Fill, BackColor = Color.FromArgb(140, Color.White), Visible = false };
             picLoader = new PictureBox
             {
@@ -138,7 +127,6 @@ namespace PdvNetDesktop.Views
             pnlLoad.Controls.Add(picLoader);
             panelCentral.Controls.Add(pnlLoad);
 
-            /* posicionamento dinâmico */
             panelCentral.Resize += (_, _) => Reposicionar();
             Reposicionar();
         }
@@ -152,7 +140,7 @@ namespace PdvNetDesktop.Views
 
             int top = lblTitulo.Bottom + 10;
             int h = panelCentral.ClientSize.Height - top - 10;
-            int w = Math.Min(825, panelCentral.ClientSize.Width - 40);
+            int w = Math.Min(944, panelCentral.ClientSize.Width - 40);
 
             dgv.Bounds = new Rectangle(cx - w / 2, top, w, h < 300 ? 300 : h);
         }
@@ -166,6 +154,7 @@ namespace PdvNetDesktop.Views
                 new DataGridViewTextBoxColumn { DataPropertyName = "Nome", HeaderText = "Nome", Width = 160 },
                 new DataGridViewTextBoxColumn { DataPropertyName = "Email", HeaderText = "E-mail", Width = 180 },
                 new DataGridViewTextBoxColumn { DataPropertyName = "CPF", HeaderText = "CPF", Width = 120 },
+                new DataGridViewTextBoxColumn { DataPropertyName = "Telefone", HeaderText = "Tel.", Width = 120 },
                 new DataGridViewTextBoxColumn { DataPropertyName = "Perfil", HeaderText = "Perfil", Width = 80 },
                 new DataGridViewButtonColumn { Text = "Detalhes", UseColumnTextForButtonValue = true, Width = 70 },
                 new DataGridViewButtonColumn { Text = "Editar", UseColumnTextForButtonValue = true, Width = 50 },
@@ -176,6 +165,7 @@ namespace PdvNetDesktop.Views
         #endregion
 
         #region Carregar / Filtrar
+
         private async Task CarregarAsync()
         {
             ToggleLoading(true);
@@ -183,28 +173,22 @@ namespace PdvNetDesktop.Views
             {
                 _usuarios.Clear();
 
-                /* desserializa no DTO da API… */
                 var brutos = await SessaoWinForms.Http
                     .GetFromJsonAsync<List<UsuarioResponse>>(
                         "api/Usuarios/GetAll",
                         new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-                /* …e converte para o que o grid usa */
                 if (brutos != null)
-                {
                     foreach (var b in brutos)
-                    {
                         _usuarios.Add(new UsuarioResponse
                         {
                             id = b.id,
-                            Nome = b.Nome,    // ou outro campo que você queira exibir
+                            Nome = b.Nome,
                             Email = b.Email,
                             CPF = b.CPF,
                             Telefone = b.Telefone,
-                            Perfil = b.perfis?.FirstOrDefault().ToString() ?? ""
+                            Perfil = b.perfis?.FirstOrDefault() ?? "Sem Perfil"
                         });
-                    }
-                }
 
                 dgv.DataSource = _usuarios;
                 lblTotal.Text = $"{_usuarios.Count} registro(s)";
@@ -219,21 +203,21 @@ namespace PdvNetDesktop.Views
 
         private void Filtrar()
         {
-            string termo = txtFiltro.Text.Trim().ToLower();
-            var dados = string.IsNullOrWhiteSpace(termo)
+            string t = txtFiltro.Text.Trim().ToLower();
+            var dados = string.IsNullOrWhiteSpace(t)
                 ? _usuarios
                 : _usuarios.Where(u =>
-                       (u.Nome ?? "").ToLower().Contains(termo) ||
-                       (u.Email ?? "").ToLower().Contains(termo) ||
-                       (u.CPF ?? "").Contains(termo) ||
-                       (u.Perfil ?? "").ToLower().Contains(termo));
+                       (u.Nome ?? "").ToLower().Contains(t) ||
+                       (u.Email ?? "").ToLower().Contains(t) ||
+                       (u.CPF ?? "").Contains(t) ||
+                       (u.Telefone ?? "").Contains(t) ||
+                       (u.Perfil ?? "").ToLower().Contains(t));
 
             dgv.DataSource = dados.ToList();
             lblTotal.Text = $"{((ICollection)dgv.DataSource).Count} registro(s)";
         }
         #endregion
 
-        /* clique em botões do grid */
         private void Dgv_CellClick(object? _, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
@@ -253,79 +237,84 @@ namespace PdvNetDesktop.Views
         #region Criar
         private async Task AbrirCriacao()
         {
-            /* garante que PERFIS já está carregado */
             if (PERFIS.Count == 0) PERFIS = await ObterPerfis();
 
             using var f = NovaTelaUsuario("Cadastrar usuário");
 
-            var txtNome = new TextBox { Left = 20, Top = 40, Width = 340 };
-            var txtEmail = new TextBox { Left = 20, Top = 100, Width = 340 };
-            var txtCPF = new TextBox { Left = 20, Top = 160, Width = 340 };
-            var txtSenha = new TextBox { Left = 20, Top = 220, Width = 340, PasswordChar = '●' };
-            var txtConf = new TextBox { Left = 20, Top = 280, Width = 340, PasswordChar = '●' };
+            int top = 40;
+            Control L(string txt) => new Label { Text = txt, Left = 20, Top = top - 18 };
+            TextBox T(bool pass = false)
+                => new() { Left = 20, Top = top, Width = 340, PasswordChar = pass ? '●' : '\0' };
+
+            var txtNome = T(); f.Controls.AddRange(new Control[] { L("Nome"), txtNome }); top += 55;
+            var txtMail = T(); f.Controls.AddRange(new Control[] { L("E-mail"), txtMail }); top += 55;
+            var txtCPF = T(); f.Controls.AddRange(new Control[] { L("CPF"), txtCPF }); top += 55;
+            var txtTel = T(); f.Controls.AddRange(new Control[] { L("Telefone"), txtTel }); top += 55;
+            var txtPass = T(true); f.Controls.AddRange(new Control[] { L("Senha"), txtPass }); top += 55;
+            var txtConf = T(true); f.Controls.AddRange(new Control[] { L("Confirmar"), txtConf }); top += 55;
 
             var cmbPerfil = new ComboBox
             {
                 Left = 20,
-                Top = 340,
+                Top = top,
                 Width = 200,
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 DataSource = PERFIS
             };
+            f.Controls.AddRange(new Control[] { L("Perfil"), cmbPerfil }); top += 70;
 
-            var btnSave = new Button { Text = "Salvar", Left = 200, Top = 390, Width = 75 };
-            var btnCancel = new Button { Text = "Cancelar", Left = 285, Top = 390, Width = 75, DialogResult = DialogResult.Cancel };
-
-            f.Controls.AddRange(new Control[]
+            var btnSave = new Button { Text = "Salvar", Left = 200, Top = top, Width = 75 };
+            var btnCancel = new Button
             {
-                new Label{Text="Nome:",      Left=20, Top=20},      txtNome,
-                new Label{Text="E-mail:",    Left=20, Top=80},      txtEmail,
-                new Label{Text="CPF:",       Left=20, Top=140},     txtCPF,
-                new Label{Text="Senha:",     Left=20, Top=200},     txtSenha,
-                new Label{Text="Confirmar:", Left=20, Top=260},     txtConf,
-                new Label{Text="Perfil:",    Left=20, Top=320},     cmbPerfil,
-                btnSave, btnCancel
-            });
+                Text = "Cancelar",
+                Left = 285,
+                Top = top,
+                Width = 75,
+                DialogResult = DialogResult.Cancel
+            };
+            f.Controls.AddRange(new Control[] { btnSave, btnCancel });
 
             btnSave.Click += async (_, _) =>
             {
-                if (txtSenha.Text != txtConf.Text)
+                if (txtPass.Text != txtConf.Text)
                 {
                     MessageBox.Show("Senha e confirmação não conferem.",
                                     "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                var dto = new
+
+                RegistrarDTO Model = new()
                 {
                     Nome = txtNome.Text.Trim(),
-                    Email = txtEmail.Text.Trim(),
+                    Email = txtMail.Text.Trim(),
                     CPF = txtCPF.Text.Trim(),
-                    Perfil = cmbPerfil.SelectedItem?.ToString() ?? "",
-                    Senha = txtSenha.Text
+                    Telefone = txtTel.Text.Trim(),
+                    Perfil = cmbPerfil.SelectedItem?.ToString(),
+                    Senha = txtPass.Text,
+                    ConfirmarSenha = txtConf.Text
                 };
 
-                var ctx = new ValidationContext(dto);
-                var results = new List<ValidationResult>();
-                if (!Validator.TryValidateObject(dto, ctx, results, true))
+                var ctx = new ValidationContext(Model);
+                var res = new List<ValidationResult>();
+                if (!Validator.TryValidateObject(Model, ctx, res, true))
                 {
-                    MessageBox.Show(string.Join("\n", results.Select(r => r.ErrorMessage)),
-                                    "Erros de validação",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Join("\n", res.Select(r => r.ErrorMessage)),
+                                    "Erros de validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 try
                 {
-                    var resp = await SessaoWinForms.Http.PostAsJsonAsync("api/Usuarios/Create", dto);
-                    if (resp.IsSuccessStatusCode)
+                    var rsp = await SessaoWinForms.Http.PostAsJsonAsync("api/Usuarios/Create", Model);
+                    if (rsp.IsSuccessStatusCode)
                     {
                         MessageBox.Show("Usuário criado com sucesso!",
                                         "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         await CarregarAsync();
                         f.Close();
                     }
-                    else await ExibirErrosDaApi(resp);
+                    else await ExibirErrosDaApi(rsp);
                 }
                 catch (Exception ex)
                 {
@@ -345,68 +334,91 @@ namespace PdvNetDesktop.Views
             {
                 Text = $"Detalhes do usuário {u.id}",
                 FormBorderStyle = FormBorderStyle.FixedDialog,
-                ClientSize = new Size(400, 260),
+                ClientSize = new Size(420, 320),
                 StartPosition = FormStartPosition.CenterParent,
                 MaximizeBox = false,
                 MinimizeBox = false
             };
+
             var lbl = new Label
             {
                 Dock = DockStyle.Fill,
                 Padding = new Padding(20),
                 Font = new Font("Segoe UI", 10),
-                Text = $"ID: {u.id}\n\nNome: {u.Nome}\n\nE-mail: {u.Email}\n\nCPF: {u.CPF}\n\nPerfil: {u.Perfil}"
+                Text =
+                    $"ID:        {u.id}\n\n" +
+                    $"Nome:      {u.Nome}\n\n" +
+                    $"E-mail:    {u.Email}\n\n" +
+                    $"CPF:       {u.CPF}\n\n" +
+                    $"Telefone:  {u.Telefone}\n\n" +
+                    $"Perfil:    {u.Perfil}"
             };
-            var btnOk = new Button { Text = "OK", DialogResult = DialogResult.OK, Dock = DockStyle.Bottom, Height = 35 };
-            f.Controls.Add(lbl);
-            f.Controls.Add(btnOk);
+            var btnOk = new Button { Text = "OK", Dock = DockStyle.Bottom, DialogResult = DialogResult.OK };
+            f.Controls.AddRange(new Control[] { lbl, btnOk });
             f.AcceptButton = btnOk;
             f.ShowDialog();
         }
 
         private async Task MostrarEditar(UsuarioResponse u)
         {
-            /* garante que PERFIS já está carregado */
             if (PERFIS.Count == 0) PERFIS = await ObterPerfis();
 
-            using var f = NovaTelaUsuario($"Editar usuário {u.id}");
+            using var f = NovaTelaUsuario($"Editar usuário {u.Nome}");
 
-            var txtNome = new TextBox { Text = u.Nome, Left = 20, Top = 40, Width = 340 };
-            var txtEmail = new TextBox { Text = u.Email, Left = 20, Top = 100, Width = 340 };
-            var txtCPF = new TextBox { Text = u.CPF, Left = 20, Top = 160, Width = 340, ReadOnly = true, BackColor = Color.Gainsboro };
+            int top = 40;
+            Control L(string t) => new Label { Text = t, Left = 20, Top = top - 18 };
+            TextBox T(string txt, bool ro = false)
+                => new()
+                {
+                    Text = txt,
+                    Left = 20,
+                    Top = top,
+                    Width = 340,
+                    ReadOnly = ro,
+                    BackColor = ro ? Color.Gainsboro : SystemColors.Window
+                };
 
-            var txtSenha = new TextBox { Left = 20, Top = 220, Width = 340, PasswordChar = '●' };
-            var txtConf = new TextBox { Left = 20, Top = 280, Width = 340, PasswordChar = '●' };
+            var txtNome = T(u.Nome); f.Controls.AddRange(new[] { L("Nome"), txtNome }); top += 55;
+            var txtMail = T(u.Email); f.Controls.AddRange(new[] { L("E-mail"), txtMail }); top += 55;
+            var txtCPF = T(u.CPF, true); f.Controls.AddRange(new[] { L("CPF"), txtCPF }); top += 55;
+            var txtTel = T(u.Telefone); f.Controls.AddRange(new[] { L("Telefone"), txtTel }); top += 55;
+
+            var txtPass = T("", true); txtPass.PasswordChar = '●'; txtPass.ReadOnly = false;
+            txtPass.BackColor = SystemColors.Window;
+            f.Controls.AddRange(new[] { L("Senha"), txtPass }); top += 55;
+
+            var txtConf = T("", true); txtConf.PasswordChar = '●'; txtConf.ReadOnly = false;
+            f.Controls.AddRange(new[] { L("Confirmar"), txtConf }); top += 55;
+            txtConf.BackColor = SystemColors.Window;
 
             var cmbPerfil = new ComboBox
             {
                 Left = 20,
-                Top = 340,
+                Top = top,
                 Width = 200,
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 DataSource = PERFIS
             };
             cmbPerfil.SelectedItem = u.Perfil;
+            f.Controls.AddRange(new[] { L("Perfil"), cmbPerfil }); top += 70;
 
-            var btnSave = new Button { Text = "Salvar", Left = 200, Top = 390, Width = 75 };
-            var btnCancel = new Button { Text = "Cancelar", Left = 285, Top = 390, Width = 75, DialogResult = DialogResult.Cancel };
-
-            f.Controls.AddRange(new Control[]
+            var btnSave = new Button { Text = "Salvar", Left = 200, Top = top, Width = 75 };
+            var btnCancel = new Button
             {
-                new Label{Text="Nome:",      Left=20, Top=20},  txtNome,
-                new Label{Text="E-mail:",    Left=20, Top=80},  txtEmail,
-                new Label{Text="CPF:",       Left=20, Top=140}, txtCPF,
-                new Label{Text="Senha:",     Left=20, Top=200}, txtSenha,
-                new Label{Text="Confirmar:", Left=20, Top=260}, txtConf,
-                new Label{Text="Perfil:",    Left=20, Top=320}, cmbPerfil,
-                btnSave, btnCancel
-            });
+                Text = "Cancelar",
+                Left = 285,
+                Top = top,
+                Width = 75,
+                DialogResult = DialogResult.Cancel
+            };
+            f.Controls.AddRange(new Control[] { btnSave, btnCancel });
 
             btnSave.Click += async (_, _) =>
             {
-                if (!string.IsNullOrEmpty(txtSenha.Text) || !string.IsNullOrEmpty(txtConf.Text))
+                if (!string.IsNullOrEmpty(txtPass.Text) ||
+                    !string.IsNullOrEmpty(txtConf.Text))
                 {
-                    if (txtSenha.Text != txtConf.Text)
+                    if (txtPass.Text != txtConf.Text)
                     {
                         MessageBox.Show("Senha e confirmação não conferem.",
                                         "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -414,35 +426,40 @@ namespace PdvNetDesktop.Views
                     }
                 }
 
-                var dto = new
+
+
+                UsuarioResponse UsuarioAtualizado = new()
                 {
-                    Id = u.id,
-                    Nome = txtNome.Text.Trim(),
-                    Email = txtEmail.Text.Trim(),
-                    Perfil = cmbPerfil.SelectedItem?.ToString() ?? "",
-                    Senha = string.IsNullOrWhiteSpace(txtSenha.Text) ? null : txtSenha.Text
+                    id = u.id,
+                    Nome = txtNome.Text,
+                    Email = txtMail.Text.Trim(),
+                    Telefone = txtTel.Text.Trim(),
+                    Perfil = cmbPerfil.SelectedItem?.ToString(),
+                    Senha = txtPass.Text.Trim(),
+                    ConfirmarSenha = txtConf.Text.Trim(),
+                    CPF = txtCPF.Text.Trim()
                 };
 
-                var ctx = new ValidationContext(dto);
-                var results = new List<ValidationResult>();
-                if (!Validator.TryValidateObject(dto, ctx, results, true))
+                var ctx = new ValidationContext(UsuarioAtualizado);
+                var res = new List<ValidationResult>();
+                if (!Validator.TryValidateObject(UsuarioAtualizado, ctx, res, true))
                 {
-                    MessageBox.Show(string.Join("\n", results.Select(r => r.ErrorMessage)),
+                    MessageBox.Show(string.Join("\n", res.Select(r => r.ErrorMessage)),
                                     "Erros de validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 try
                 {
-                    var resp = await SessaoWinForms.Http.PutAsJsonAsync("api/Usuarios/Update", dto);
-                    if (resp.IsSuccessStatusCode)
+                    var rsp = await SessaoWinForms.Http.PutAsJsonAsync("api/Usuarios/Update", UsuarioAtualizado);
+                    if (rsp.IsSuccessStatusCode)
                     {
                         MessageBox.Show("Usuário atualizado com sucesso!",
                                         "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         await CarregarAsync();
                         f.Close();
                     }
-                    else await ExibirErrosDaApi(resp);
+                    else await ExibirErrosDaApi(rsp);
                 }
                 catch (Exception ex)
                 {
@@ -489,9 +506,7 @@ namespace PdvNetDesktop.Views
         {
             pnlLoad.Visible = show;
             pnlLoad.BringToFront();
-            dgv.Enabled =
-            strip.Enabled =
-            status.Enabled = !show;
+            dgv.Enabled = strip.Enabled = status.Enabled = !show;
         }
 
         private static async Task ExibirErrosDaApi(HttpResponseMessage resp)
@@ -499,8 +514,7 @@ namespace PdvNetDesktop.Views
             if (resp.Content.Headers.ContentType?.MediaType == "application/problem+json")
             {
                 var problem = await resp.Content.ReadFromJsonAsync<ValidationProblemDetails>();
-                var errs = problem.Errors.SelectMany(kvp => kvp.Value);
-                MessageBox.Show(string.Join("\n", errs),
+                MessageBox.Show(string.Join("\n", problem.Errors.SelectMany(kvp => kvp.Value)),
                                 "Erros do servidor", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
@@ -511,16 +525,15 @@ namespace PdvNetDesktop.Views
             }
         }
 
-        private static Form NovaTelaUsuario(string titulo) =>
-            new()
-            {
-                Text = titulo,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                ClientSize = new Size(440, 480),
-                StartPosition = FormStartPosition.CenterParent,
-                MaximizeBox = false,
-                MinimizeBox = false
-            };
+        private static Form NovaTelaUsuario(string titulo) => new()
+        {
+            Text = titulo,
+            FormBorderStyle = FormBorderStyle.FixedDialog,
+            ClientSize = new Size(450, 560),
+            StartPosition = FormStartPosition.CenterParent,
+            MaximizeBox = false,
+            MinimizeBox = false
+        };
 
         private sealed class DoubleBufferedGrid : DataGridView
         {
@@ -533,7 +546,7 @@ namespace PdvNetDesktop.Views
             try
             {
                 var lista = await SessaoWinForms.Http
-                    .GetFromJsonAsync<List<PerfilResponse>>(
+                    .GetFromJsonAsync<List<UsuarioPerfilResponse>>(
                         "api/Perfil/GetAll",
                         new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 

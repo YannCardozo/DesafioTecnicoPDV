@@ -1,9 +1,12 @@
 ﻿using General.DTO.Aluguel;
 using General.DTO.Imovel;
+using General.Response.Aluguel;
+using General.Response.Usuario;
 using InfraData.Context;
 using InfraData.DAO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -64,7 +67,6 @@ namespace Api.Controllers
         {
             try
             {
-
                 var usuarioverifica = await _contextoDB.Users.FirstOrDefaultAsync(u => u.Id == Model.UsuarioId);
                 if(usuarioverifica == null)
                 {
@@ -82,7 +84,9 @@ namespace Api.Controllers
                     ImovelId = Model.ImovelId,
                     ValorLocacao = Model.ValorLocacao,
                     DataInicio = Model.DataInicio,
-                    DataTermino = Model.DataTermino
+                    DataTermino = Model.DataTermino,
+                    DataCriacao = DateTime.UtcNow,
+                    DataAtualizacao = DateTime.UtcNow.AddHours(-2)
                 };
 
 
@@ -97,6 +101,60 @@ namespace Api.Controllers
                 return BadRequest($"Erro ao cadastrar ALUGUEL: {ex.Message}");
             }
         }
+
+        [Authorize]
+        [HttpPut("Update")]
+        public async Task<IActionResult> AtualizarAluguel([FromBody] AluguelResponse model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                if(model.Id <= 0)
+                {
+                    return BadRequest("ID inválido para atualizar o ALUGUEL.");
+                }
+
+                if(model.ValorLocacao <= 0)
+                {
+                    return BadRequest("Valor de locação inválido para atualizar o ALUGUEL.");
+                }
+
+                var aluguelexistente = await _contextoDB.Alugueis.FirstOrDefaultAsync(u => u.Id == model.Id);
+                if(aluguelexistente == null)
+                {
+                    return NotFound("Não foi possível ATUALIZAR esse ALUGUEL pois não foi ENCONTRADO.");
+                }
+
+
+                    aluguelexistente.Id = model.Id;
+                    aluguelexistente.ImovelId = model.ImovelId;
+                    aluguelexistente.UsuarioId = model.UsuarioId;
+                    aluguelexistente.ValorLocacao = model.ValorLocacao;
+                    aluguelexistente.DataInicio = model.DataInicio;
+                    aluguelexistente.DataTermino = model.DataTermino;
+                    aluguelexistente.DataAtualizacao = DateTime.UtcNow.AddHours(-2);
+
+
+
+                _contextoDB.Alugueis.Update(aluguelexistente);
+                await _contextoDB.SaveChangesAsync();
+
+
+                return Ok("ALUGUEL atualizado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($@"Erro ao ATUALIZAR ALUGUEL: {ex.Message}");
+            }
+
+        }
+
+
+
         [AllowAnonymous]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletarAluguel(int id)

@@ -1,4 +1,6 @@
 ﻿using General.DTO.Perfil;
+using General.Response.Imovel;
+using General.Response.Perfil;
 using InfraData.Context;
 using InfraData.DAO;
 using Microsoft.AspNetCore.Authorization;
@@ -76,6 +78,38 @@ namespace Api.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPut("Update")]
+        public async Task<IActionResult> AtualizarPerfil([FromBody] PerfilResponse Model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+
+                var perfilExistente = await _contextoDB.Roles.FirstOrDefaultAsync(p => p.Name == Model.Perfil);
+
+                if (perfilExistente == null)
+                {
+                    return NotFound("Não encontrado o PERFIL para ATUALIZAR.");
+                }
+
+                perfilExistente.Name = Model.Perfil;
+
+                _contextoDB.Roles.Update(perfilExistente);
+                await _contextoDB.SaveChangesAsync();
+
+                return Ok("Perfil ATUALIZADO com sucesso!");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar Perfis: {ex.Message}");
+            }
+        }
 
         [AllowAnonymous]
         [HttpDelete("Delete/{id}")]

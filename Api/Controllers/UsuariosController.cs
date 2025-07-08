@@ -57,7 +57,7 @@ namespace Api.Controllers
                 }
 
                 var telefone_duplicado = await _userManager.Users.AnyAsync(u => u.Telefone == Model.Telefone);
-                if (telefone_duplicado != null)
+                if (telefone_duplicado == true)
                 {
                     return Conflict("Telefone já cadastrado.");
                 }
@@ -94,59 +94,67 @@ namespace Api.Controllers
         [HttpPut("Update")]
         public async Task<IActionResult> AtualizarUsuario([FromBody] UsuarioResponse model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            // 1) Busca o usuário existente
-            var usuario = await _contextoDB.Users.FirstOrDefaultAsync(u => u.Id == model.id);
-            if (usuario == null)
+            try
             {
-                return NotFound("Usuário não encontrado para atualizar.");
-            }
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-
-            // 2) Se veio senha nova, faz a troca
-            if (!string.IsNullOrEmpty(model.Senha))
-            {
-                // Para ChangePasswordAsync você precisa da senha antiga. Se não tiver, 
-                // pode usar ResetPasswordAsync com um token.
-                // Exemplo: reset com token
-                var token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
-                var changePassResult = await _userManager.ResetPasswordAsync(usuario, token, model.Senha);
-                if (!changePassResult.Succeeded)
-                    return BadRequest(string.Join("; ", changePassResult.Errors.Select(e => e.Description)));
-            }
-
-            // 3) Se veio perfil novo, atualiza roles
-            if (!string.IsNullOrEmpty(model.Perfil))
-            {
-                // obtém roles atuais
-                var rolesAtuais = await _userManager.GetRolesAsync(usuario);
-                // remove cada um
-                if (rolesAtuais.Count > 0)
+                // 1) Busca o usuário existente
+                var usuario = await _contextoDB.Users.FirstOrDefaultAsync(u => u.Id == model.id);
+                if (usuario == null)
                 {
-                    var removeResult = await _userManager.RemoveFromRolesAsync(usuario, rolesAtuais);
-                    if (!removeResult.Succeeded)
-                        return BadRequest(string.Join("; ", removeResult.Errors.Select(e => e.Description)));
+                    return NotFound("Usuário não encontrado para atualizar.");
                 }
-                // adiciona o novo perfil
-                var addResult = await _userManager.AddToRoleAsync(usuario, model.Perfil);
-                if (!addResult.Succeeded)
-                    return BadRequest(string.Join("; ", addResult.Errors.Select(e => e.Description)));
+
+
+                // 2) Se veio senha nova, faz a troca
+                if (!string.IsNullOrEmpty(model.Senha))
+                {
+                    // Para ChangePasswordAsync você precisa da senha antiga. Se não tiver, 
+                    // pode usar ResetPasswordAsync com um token.
+                    // Exemplo: reset com token
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
+                    var changePassResult = await _userManager.ResetPasswordAsync(usuario, token, model.Senha);
+                    if (!changePassResult.Succeeded)
+                        return BadRequest(string.Join("; ", changePassResult.Errors.Select(e => e.Description)));
+                }
+
+                // 3) Se veio perfil novo, atualiza roles
+                if (!string.IsNullOrEmpty(model.Perfil))
+                {
+                    // obtém roles atuais
+                    var rolesAtuais = await _userManager.GetRolesAsync(usuario);
+                    // remove cada um
+                    if (rolesAtuais.Count > 0)
+                    {
+                        var removeResult = await _userManager.RemoveFromRolesAsync(usuario, rolesAtuais);
+                        if (!removeResult.Succeeded)
+                            return BadRequest(string.Join("; ", removeResult.Errors.Select(e => e.Description)));
+                    }
+                    // adiciona o novo perfil
+                    var addResult = await _userManager.AddToRoleAsync(usuario, model.Perfil);
+                    if (!addResult.Succeeded)
+                        return BadRequest(string.Join("; ", addResult.Errors.Select(e => e.Description)));
+                }
+
+                // 4) Atualiza demais campos
+                usuario.Email = model.Email;
+                usuario.CPF = model.CPF;
+                usuario.Nome = model.Nome;
+                usuario.Telefone = model.Telefone;
+
+                // 5) Persiste as alterações
+                var updateResult = await _userManager.UpdateAsync(usuario);
+                if (!updateResult.Succeeded)
+                    return BadRequest(string.Join("; ", updateResult.Errors.Select(e => e.Description)));
+
+                return Ok("Usuário atualizado com sucesso!");
             }
-
-            // 4) Atualiza demais campos
-            usuario.Email = model.Email;
-            usuario.CPF = model.CPF;
-            usuario.Nome = model.Nome;
-            usuario.Telefone = model.Telefone;
-
-            // 5) Persiste as alterações
-            var updateResult = await _userManager.UpdateAsync(usuario);
-            if (!updateResult.Succeeded)
-                return BadRequest(string.Join("; ", updateResult.Errors.Select(e => e.Description)));
-
-            return Ok("Usuário atualizado com sucesso!");
+            catch(Exception ex)
+            {
+                return BadRequest($@"Erro ao ATUALIZAR USUARIO: {ex.Message}");
+            }
+            
         }
 
 

@@ -66,8 +66,8 @@ namespace PdvNetDesktop.Views
             UserControl view = opt switch
             {
                 SidebarMenu.MenuOption.Imovel => new ImoveisView(),
-                //SidebarMenu.MenuOption.Aluguel => new AluguelView(),
-                //SidebarMenu.MenuOption.Perfis => new PerfisView(),
+                SidebarMenu.MenuOption.Aluguel => new AluguelView(),
+                SidebarMenu.MenuOption.Perfis => new PerfilView(),
                 SidebarMenu.MenuOption.Usuarios => new UsuariosView(),
                 _ => new UserControl()
             };

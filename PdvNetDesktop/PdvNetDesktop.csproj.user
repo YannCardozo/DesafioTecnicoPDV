@@ -10,6 +10,9 @@
     <Compile Update="Components\SpinnerOverlay.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Views\AlugueisView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -18,6 +21,9 @@
     </Compile>
     <Compile Update="Views\LoginForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\PerfilView.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Views\UsuariosView.cs">
       <SubType>UserControl</SubType>

@@ -28,6 +28,6 @@ namespace General.Response.Usuario
             [Required]
             public string Telefone { get; set; }
 
-            public List<string> perfis { get; set; }
+            public List<string>? perfis { get; set; }
     }
 }
