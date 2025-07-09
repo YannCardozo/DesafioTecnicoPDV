@@ -1,0 +1,73 @@
+.header {
+  position: fixed;            /* mantém header no topo, evita empurrar layout */
+  inset: 0 0 auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.logo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #1e1e1e;
+  text-decoration: none;
+}
+.logo span {
+  color: #0066ff;
+}
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+.nav a,
+.nav .logout {
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+}
+.nav a:hover,
+.logout:hover {
+  color: #0066ff;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.hamburger span {
+  width: 24px;
+  height: 3px;
+  background: #1e1e1e;
+  transition: transform 0.3s;
+}
+@media (max-width: 768px) {
+  .nav {
+    position: fixed;          /* sobrepõe toda a tela */
+    top: 64px;                /* altura do header */
+    right: -100%;             /* inicia fora da viewport */
+    width: 70%;               /* largura do menu */
+    height: calc(100vh - 64px);
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: #fff;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+  }
+  .nav.open {
+    right: 0;                /* desliza para dentro */
+  }
+  .hamburger {
+    display: flex;            /* botão hambúrguer visível no mobile */
+  }
+}

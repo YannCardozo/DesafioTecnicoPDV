@@ -100,8 +100,8 @@ namespace PdvNetDesktop
             Controls.AddRange(new Control[] { lblEmail, txtEmail, lblSenha, txtSenha, btnLogin });
 
             /* Dados de teste (remova no release) */
-            txtEmail.Text = "yann_cardozo@hotmail.com";
-            txtSenha.Text = "Chaons26196460!@";
+            txtEmail.Text = "pdvnet@pdvnet.com.br";
+            txtSenha.Text = "PDVnet123!@";
         }
 
         /* ---------- Clique Login ---------- */

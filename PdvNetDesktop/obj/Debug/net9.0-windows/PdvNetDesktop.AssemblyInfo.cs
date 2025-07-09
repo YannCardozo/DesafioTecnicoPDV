@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PdvNetDesktop")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+755884bacc7655886aa8152fcabea5c42a5b8937")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e15fd0b20bf27dd663f8bf75b0045ffc421c13d")]
 [assembly: System.Reflection.AssemblyProductAttribute("PdvNetDesktop")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PdvNetDesktop")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,46 @@
+.property-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.property-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.property-card .info {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.property-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.property-card .location {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.5rem;
+}
+.property-card .price {
+  font-weight: 700;
+  color: #0066ff;
+  margin-bottom: 1rem;
+}
+.property-card button {
+  align-self: flex-start;
+  padding: 0.6rem 1.4rem;
+  background: #0066ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.property-card button:hover {
+  background: #0051cc;
+}
