@@ -38,9 +38,6 @@ namespace Api.Controllers
             {
                 Usuario usuariolocalizado = null;
 
-                //Model.Senha = "Chaons26196460!@";
-                //Model.CPF = "13457498725";
-
                 if (!string.IsNullOrWhiteSpace(Model.CPF) && !Model.CPF.Contains("@"))
                 {
                     usuariolocalizado = await _userManager.Users.FirstOrDefaultAsync(u => u.CPF == Model.CPF);

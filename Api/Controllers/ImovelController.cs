@@ -56,7 +56,7 @@ namespace Api.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("Create")]
         public async Task<IActionResult> CadastrarImovel([FromBody] ImovelDTO Model)
         {
@@ -80,6 +80,7 @@ namespace Api.Controllers
                     Endereco = Model.Endereco,
                     Status = Model.Status,
                     ValorLocacao = Model.ValorLocacao,
+                    ImagemBase64 = Model.ImagemBase64,
                     DataCriacao = DateTime.Now,
                     DataAtualizacao = DateTime.Now
                 };
@@ -117,6 +118,7 @@ namespace Api.Controllers
                 verificaImovelExistente.Endereco = Model.Endereco;
                 verificaImovelExistente.Status = Model.Status;
                 verificaImovelExistente.ValorLocacao = Model.ValorLocacao;
+                verificaImovelExistente.ImagemBase64 = Model.ImagemBase64;
                 verificaImovelExistente.DataCriacao = verificaImovelExistente.DataCriacao;
                 verificaImovelExistente.DataAtualizacao = DateTime.Now;
 
@@ -132,7 +134,7 @@ namespace Api.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletarImovel(int id)
         {

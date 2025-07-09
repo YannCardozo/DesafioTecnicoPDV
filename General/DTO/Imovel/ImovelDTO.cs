@@ -19,5 +19,8 @@ namespace General.DTO.Imovel
         public string Status { get; set; }
         [Required(ErrorMessage = "Preencha o valor de locação.")]
         public decimal ValorLocacao { get; set; }
+
+        
+        public string? ImagemBase64 { get; set; }
     }
 }

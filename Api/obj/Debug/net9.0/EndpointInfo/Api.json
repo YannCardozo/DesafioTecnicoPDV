@@ -624,6 +624,10 @@
           "valorLocacao": {
             "type": "number",
             "format": "double"
+          },
+          "imagemBase64": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -664,6 +668,10 @@
           "dataAtualizacao": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "imagemBase64": {
+            "type": "string",
             "nullable": true
           }
         },

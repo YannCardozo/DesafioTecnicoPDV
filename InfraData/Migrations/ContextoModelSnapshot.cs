@@ -93,6 +93,10 @@ namespace InfraData.Migrations
                         .HasColumnType("varchar")
                         .HasColumnName("Endereco");
 
+                    b.Property<string>("ImagemBase64")
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("ImagemBase64");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(20)

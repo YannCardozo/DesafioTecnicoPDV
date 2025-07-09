@@ -24,7 +24,7 @@ namespace Api.Controllers
         }
 
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<IActionResult> ListarAlugueis()
         {
@@ -41,7 +41,7 @@ namespace Api.Controllers
         }
 
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> ObterAluguel(int id)
         {
@@ -61,7 +61,7 @@ namespace Api.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("Create")]
         public async Task<IActionResult> CadastrarAluguel([FromBody] AluguelDTO Model)
         {
@@ -155,7 +155,7 @@ namespace Api.Controllers
 
 
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletarAluguel(int id)
         {

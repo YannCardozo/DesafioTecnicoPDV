@@ -61,6 +61,11 @@ namespace InfraData.Repository.Configuration
                 .HasColumnName("datacriacao")
                 .HasColumnType("datetime2");
 
+            builder
+                .Property(o => o.ImagemBase64)
+                .HasColumnName("ImagemBase64")
+                .HasColumnType("varchar(max)");
+
 
             //RELACIONAMENTOS
             builder.HasMany(i => i.Alugueis)

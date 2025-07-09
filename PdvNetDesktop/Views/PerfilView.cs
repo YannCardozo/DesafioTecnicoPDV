@@ -1,9 +1,4 @@
-﻿/*  PerfilView.cs  ────────────────────────────────────────────────────────────
- *  Lista, cria, associa e exclui perfis de usuário
- *  - Combo “Associar perfil” agora carrega TODOS os usuários e exibe o e-mail
- *  - Grid contém botões **Detalhes** | **Editar** | **Excluir**
- *  ------------------------------------------------------------------------- */
-using General.DTO.Perfil;
+﻿using General.DTO.Perfil;
 using General.DTO.Usuario;              // PerfilDTO
 using General.Response.Perfil;
 using General.Response.Usuario;         // PerfilResponse & UsuarioResponse

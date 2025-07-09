@@ -24,13 +24,13 @@ namespace Api.Controllers
             _userManager = userManager;
         }
         //alterar para Authorization forçando o estado de autenticação do usuario para LOGADO.
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<IActionResult> ListarPerfis()
         {
             try
             {
-                var PerfisCriados = _contextoDB.Roles.ToList();
+                var PerfisCriados = _contextoDB.Roles.AsNoTracking().OrderBy(i => i.Id).ToList();
                 return Ok(PerfisCriados);
             }
             catch (Exception ex)
@@ -42,7 +42,7 @@ namespace Api.Controllers
 
 
         //alterar para Authorization forçando o estado de autenticação do usuario para LOGADO.
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("Create")]
         public async Task<IActionResult> CriarPerfil([FromBody] PerfilDTO Model)
         {
@@ -111,7 +111,7 @@ namespace Api.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletarPerfil(int id)
         {
@@ -135,7 +135,7 @@ namespace Api.Controllers
         }
 
         //alterar para Authorization forçando o estado de autenticação do usuario para LOGADO.
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("AssociarPerfil")]
         public async Task<IActionResult> AssociarPerfil([FromBody] PerfilDTO Model)
         {

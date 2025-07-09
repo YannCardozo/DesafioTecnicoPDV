@@ -159,7 +159,7 @@ namespace Api.Controllers
 
 
         //alterar para Authorization forçando o estado de autenticação do usuario para LOGADO.
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<IActionResult> ListarUsuarios()
         {
@@ -183,7 +183,7 @@ namespace Api.Controllers
                                   (ur, r) => r.Name)
                             .ToList()
                     })
-                    .ToListAsync();
+                    .AsNoTracking().OrderBy(i => i.Id).ToListAsync();
 
                 return Ok(usuarioscomperfis);
             }
@@ -194,7 +194,7 @@ namespace Api.Controllers
         }
 
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> ObterUsuario(int id)
         {
@@ -233,7 +233,7 @@ namespace Api.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletarUsuario(int id)
         {

@@ -16,6 +16,8 @@ namespace InfraData.DAO
         //disponivel ou alugado
         public string Status { get; set; }
 
+        //imagem de IMOVEL
+        public string? ImagemBase64 { get; set; }
 
         public ICollection<Aluguel> Alugueis { get; set; } // 1 imóvel → N aluguéis
     }
