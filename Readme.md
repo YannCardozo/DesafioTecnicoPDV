@@ -64,7 +64,7 @@ Auth -> sendo responsável pela AUTENTICAÇÃO do Usuário, sendo o LOGIN realiz
 Implementado autenticação básica com o token JWT, disponibilizando CLAIMS no Token para obtenção delas no front end. Inserido o token JWT no COOKIES por oferecer maior SEGURANÇA, pela variável "pdvnet\_token"
 
 
-#Winforms
+# Winforms
 O Winforms foi dividido em componentes para algumas reutilizações de UI, utilitarios para métodos, sessão para obtenção do token JWT e envio as requisicoes de endpoints, para poder consumir com a autorização necessária. Resources com Logo da tela de Login e Loader de gif carregando para dar interatividade ao usuário do sistema durante os carregamentos do GRID.
 
 O DataGrid foi a escolha para utilização do CRUD
