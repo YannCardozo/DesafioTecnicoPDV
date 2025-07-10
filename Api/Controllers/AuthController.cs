@@ -70,7 +70,9 @@ namespace Api.Controllers
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim("Usuario", usuariolocalizado.UserName),
                         new Claim("CPF", usuariolocalizado.CPF),
-                        new Claim("Perfil", roles.First())
+                        new Claim("Perfil", roles.First()),
+                        new Claim("Nome", usuariolocalizado.Nome),
+                        new Claim("Id", usuariolocalizado.Id.ToString())
                     };
 
 

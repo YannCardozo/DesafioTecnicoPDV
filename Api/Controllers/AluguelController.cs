@@ -40,6 +40,42 @@ namespace Api.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet("GetAllById/{id}")]
+        public async Task<IActionResult> ListarAlugueisDoLocatario(int id)
+        {
+            try
+            {
+                var alugueis = await _contextoDB.Alugueis.Where(u => u.UsuarioId == id).ToListAsync();
+                if (alugueis.Count <= 0)
+                {
+                    return NotFound("Não encontrado Aluguéis para esse Locatário.");
+                }
+
+
+                foreach(var aluguel in alugueis)
+                {
+                    var ImovelLocalizado = await _contextoDB.Imoveis.AsNoTracking().FirstOrDefaultAsync(u => u.Id == aluguel.ImovelId);
+                    var LocatarioLocalizado = await _contextoDB.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == aluguel.UsuarioId);
+                    if(ImovelLocalizado != null)
+                    {
+                        aluguel.Imovel = ImovelLocalizado;
+                    }
+                    if (LocatarioLocalizado != null)
+                    {
+                        aluguel.Usuario = LocatarioLocalizado;
+                    }
+
+                }
+
+                return Ok(alugueis);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar ALUGUEIS: {ex.Message}");
+            }
+        }
+
 
         [Authorize]
         [HttpGet("Get/{id}")]

@@ -15,7 +15,8 @@ img {
 }
 a {
   color: inherit;
+  text-decoration: none;
 }
 section {
-  scroll-margin-top: 80px; /* offset for sticky header */
+  scroll-margin-top: 80px;
 }

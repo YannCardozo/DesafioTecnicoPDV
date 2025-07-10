@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|c:\\users\\windows 11\\desktop\\repo\\desafiotecnicopdv\\api\\controllers\\aluguelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|solutionrelative:controllers\\aluguelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|c:\\users\\windows 11\\desktop\\repo\\desafiotecnicopdv\\api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|c:\\users\\windows 11\\desktop\\repo\\desafiotecnicopdv\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AFEB3672-223F-4D30-8257-66A8E81DDFC9}|Api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -35,19 +43,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AluguelController.cs",
+              "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\AluguelController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AluguelController.cs",
+              "ToolTip": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\AluguelController.cs",
+              "RelativeToolTip": "Controllers\\AluguelController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAswCoAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T22:19:46.353Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAowEcAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T22:12:38.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAFYAAAAAAAAAAAAswG0AAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAswG0AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-09T19:04:35.516Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "LoginForm.cs",
               "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\PdvNetDesktop\\Views\\LoginForm.cs",
               "RelativeDocumentMoniker": "..\\PdvNetDesktop\\Views\\LoginForm.cs",
@@ -55,12 +89,11 @@
               "RelativeToolTip": "..\\PdvNetDesktop\\Views\\LoginForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGYAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T18:53:26.195Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T18:53:26.195Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "ImovelDTO.cs",
               "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\General\\DTO\\Imovel\\ImovelDTO.cs",
               "RelativeDocumentMoniker": "..\\General\\DTO\\Imovel\\ImovelDTO.cs",
@@ -68,12 +101,11 @@
               "RelativeToolTip": "..\\General\\DTO\\Imovel\\ImovelDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T18:16:00.634Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T18:16:00.634Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Imoveis.cs",
               "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\InfraData\\DAO\\Imoveis.cs",
               "RelativeDocumentMoniker": "..\\InfraData\\DAO\\Imoveis.cs",
@@ -81,12 +113,11 @@
               "RelativeToolTip": "..\\InfraData\\DAO\\Imoveis.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T18:15:27.425Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T18:15:27.425Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "ImoveisConfiguration.cs",
               "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\InfraData\\Repository\\Configuration\\ImoveisConfiguration.cs",
               "RelativeDocumentMoniker": "..\\InfraData\\Repository\\Configuration\\ImoveisConfiguration.cs",
@@ -94,12 +125,11 @@
               "RelativeToolTip": "..\\InfraData\\Repository\\Configuration\\ImoveisConfiguration.cs",
               "ViewState": "AgIAAC4AAAAAAAAAAAAgwEIAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T17:39:22.453Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T17:39:22.453Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ImovelController.cs",
               "DocumentMoniker": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Controllers\\ImovelController.cs",
               "RelativeDocumentMoniker": "Controllers\\ImovelController.cs",
