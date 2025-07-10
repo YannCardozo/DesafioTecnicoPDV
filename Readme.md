@@ -12,6 +12,10 @@ URLS:
 -WEB API: https://testepdvnet.runasp.net/index.html  
 -Sistema Web REACT: https://testepdvnet.netlify.app/  
 
+# SqlServer
+
+O banco de de dados está em produção em um deploy gratuito, conectado a WEB API.
+
 # Arquitetura
 Criação das camadas General (Model), Repository, Controller , Infra e PdvNetDesktop ( WinForms ).
 
@@ -98,3 +102,12 @@ Sistema Web React acessível no link do netlify https://testepdvnet.netlify.app/
 O sistema WEB tem área logada , após o login é injetado o token dentro do COOKIES por ser mais seguro na variável: pdvnet_token , após o login realizado é possível ver quantos alugueis foram realizados para o usuário da aplicação e quanto tempo resta ainda de contrato de aluguel para o mesmo, calculado em DIAS. As claims do Token JWT são exibiadas na área logada do portal.
 
 O Sistema Web tem uma index com exibição de alguns imóveis.
+
+Para visualizar LOCALMENTE o projeto React, tendo o node instalado corretamente no ambiente.
+
+Abrir o CMD na pasta correta do REACT, proceder com:
+
+-npm install  
+-npm run build
+
+OU EXECUTAR O Iniciar.bat , que já builda o projeto REACT e abre o navegador na porta correta do projeto.
