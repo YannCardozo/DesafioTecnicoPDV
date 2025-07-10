@@ -79,7 +79,7 @@ Implementado autenticação básica com o token JWT, disponibilizando CLAIMS no 
 
 # Winforms
 
-Será disponibilizado uma versão RELEASE do Build do aplicativo do WinForms que poderá ser utilizado pelo usuário ( após ser instalado o runtime do .net 9 para desktop windows, caso não tenha ele ainda. )
+Será disponibilizado uma versão RELEASE do Build do aplicativo do WinForms que poderá ser utilizado pelo usuário ( após ser instalado o runtime do .net 9 para desktop windows, caso não tenha ele ainda. ) deverá ser executado o PdvNetDesktop.exe que está dentro de release em net 9 windows ou pelo build do VISUAL STUDIO.
 
 No ambiente do visual Studio, assim que acessar, entrar no menu acima "Compilação" e pressionar compilar solução, recompilar e limpar solução. Verificar se os pacotes e dependencias foram todos instalados corretamente. Após isso proceder com a utilização do winforms.
 
