@@ -93,4 +93,8 @@ O usuário pode ter um perfil, pode cadastrar um imovel, criar um aluguel median
 
 # Sistema Web - React
 
-Sistema Web React acessível no link do netlify, com deploy disponível. 
+Sistema Web React acessível no link do netlify https://testepdvnet.netlify.app/   
+
+O sistema WEB tem área logada , após o login é injetado o token dentro do COOKIES por ser mais seguro na variável: pdvnet_token , após o login realizado é possível ver quantos alugueis foram realizados para o usuário da aplicação e quanto tempo resta ainda de contrato de aluguel para o mesmo, calculado em DIAS. As claims do Token JWT são exibiadas na área logada do portal.
+
+O Sistema Web tem uma index com exibição de alguns imóveis.
