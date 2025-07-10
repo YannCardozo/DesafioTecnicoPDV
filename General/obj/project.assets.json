@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\General\\General.csproj",
+      "projectUniqueName": "C:\\Users\\Windows 11\\Desktop\\Repo\\alfafa\\DesafioTecnicoPDV\\General\\General.csproj",
       "projectName": "General",
-      "projectPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\General\\General.csproj",
+      "projectPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\alfafa\\DesafioTecnicoPDV\\General\\General.csproj",
       "packagesPath": "C:\\Users\\Windows 11\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\General\\obj\\",
+      "outputPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\alfafa\\DesafioTecnicoPDV\\General\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

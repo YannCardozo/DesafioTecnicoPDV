@@ -11,7 +11,7 @@ namespace PdvNetDesktop.Sessao
         public static string Jwt { get; set; }
         public static HttpClient Http { get; } = new()
         {
-            BaseAddress = new Uri("https://localhost:7288/")
+            BaseAddress = new Uri("https://testepdvnet.runasp.net/")
         };
     }
 }

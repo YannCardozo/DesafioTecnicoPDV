@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InfraData")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+475435bbe91de22a3010fe25782ecf6207a658db")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eccfb79efab5223c178aed3b41326cebe1133cfc")]
 [assembly: System.Reflection.AssemblyProductAttribute("InfraData")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InfraData")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

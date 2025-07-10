@@ -3863,11 +3863,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\PdvNetDesktop\\PdvNetDesktop.csproj",
+      "projectUniqueName": "C:\\Users\\Windows 11\\Desktop\\Repo\\alfafa\\DesafioTecnicoPDV\\PdvNetDesktop\\PdvNetDesktop.csproj",
       "projectName": "PdvNetDesktop",
-      "projectPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\PdvNetDesktop\\PdvNetDesktop.csproj",
+      "projectPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\alfafa\\DesafioTecnicoPDV\\PdvNetDesktop\\PdvNetDesktop.csproj",
       "packagesPath": "C:\\Users\\Windows 11\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\PdvNetDesktop\\obj\\",
+      "outputPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\alfafa\\DesafioTecnicoPDV\\PdvNetDesktop\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3891,8 +3891,8 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "projectReferences": {
-            "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Api.csproj": {
-              "projectPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\DesafioTecnicoPDV\\Api\\Api.csproj"
+            "C:\\Users\\Windows 11\\Desktop\\Repo\\alfafa\\DesafioTecnicoPDV\\Api\\Api.csproj": {
+              "projectPath": "C:\\Users\\Windows 11\\Desktop\\Repo\\alfafa\\DesafioTecnicoPDV\\Api\\Api.csproj"
             }
           }
         }
