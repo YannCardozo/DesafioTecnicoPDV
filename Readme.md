@@ -4,13 +4,13 @@ O Backend foi desenvolvido em c# utilizando o .net core 9.0. 2 Sistemas diferent
 
 Dados para acesso aos sistemas,
 
-cpf:25476523412
-email:pdvnet@pdvnet.com.br
-senha:PDVnet123!@
+cpf:25476523412  
+email:pdvnet@pdvnet.com.br  
+senha:PDVnet123!@  
 
-URLS:
--WEB API: https://testepdvnet.runasp.net/index.html
--Sistema Web REACT: https://testepdvnet.netlify.app/
+URLS:  
+-WEB API: https://testepdvnet.runasp.net/index.html  
+-Sistema Web REACT: https://testepdvnet.netlify.app/  
 
 # Arquitetura
 Criação das camadas General (Model), Repository, Controller , Infra e PdvNetDesktop ( WinForms ).
