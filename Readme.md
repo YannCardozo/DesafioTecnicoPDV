@@ -65,5 +65,7 @@ Implementado autenticação básica com o token JWT, disponibilizando CLAIMS no 
 
 
 
+O Winforms foi dividido em componentes para algumas reutilizações de UI, utilitarios para métodos, sessão para obtenção do token JWT e envio as requisicoes de endpoints, para poder consumir com a autorização necessária. Resources com Logo da tela de Login e Loader de gif carregando para dar interatividade ao usuário do sistema durante os carregamentos do GRID.
 
+O DataGrid foi a escolha para utilização do CRUD
 
