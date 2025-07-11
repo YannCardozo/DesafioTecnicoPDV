@@ -15,7 +15,6 @@ namespace PdvNetDesktop
 {
     public partial class LoginForm : Form
     {
-        /* ---------- CONTROLES ---------- */
         private Label lblEmail, lblSenha;
         private TextBox txtEmail, txtSenha;
         private Button btnLogin;
@@ -24,7 +23,6 @@ namespace PdvNetDesktop
 
         private readonly SpinnerOverlay overlay;
 
-        /* ---------- Caminhos ---------- */
         private readonly string logoPath = DiretorioPastas.ObterLogo();
 
         public LoginForm()
@@ -35,14 +33,12 @@ namespace PdvNetDesktop
 
         private void InitializeComponent()
         {
-            /* Form */
             ClientSize = new Size(360, 220);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Imobiliaria - PdvNet";
 
-            /* Logo */
             picLogo = new PictureBox
             {
                 Size = new Size(64, 64),

@@ -20,9 +20,9 @@ namespace PdvNetDesktop.Views
 {
     public partial class UsuariosView : UserControl
     {
-        /* ───────── dados ───────── */
+
         private readonly BindingList<UsuarioResponse> _usuarios = new();
-        private List<string> PERFIS = new();   // nomes dos perfis
+        private List<string> PERFIS = new();
 
         public UsuariosView()
         {
@@ -31,7 +31,6 @@ namespace PdvNetDesktop.Views
             _ = CarregarAsync();
         }
 
-        /* ───────── CONTROLES ───────── */
         private ToolStrip strip;
         private ToolStripButton btnRefresh, btnNovo, btnFiltrar;
         private ToolStripTextBox txtFiltro;

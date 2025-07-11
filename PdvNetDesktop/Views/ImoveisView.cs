@@ -1,6 +1,4 @@
-﻿/*  ImoveisView.cs  ───────────────────────────────────────────────────────── */
-/*  - CRUD de imóveis + upload/preview de foto (Base-64)                     */
-using General.DTO.Imovel;
+﻿using General.DTO.Imovel;
 using General.Response.Imovel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;

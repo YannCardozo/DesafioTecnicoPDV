@@ -74,10 +74,18 @@ namespace Api.Controllers
 
                 var resultado_criado = await _userManager.CreateAsync(NovoUsuario, Model.Senha);
 
+
+
                 if (!resultado_criado.Succeeded)
                 {
                     return BadRequest(resultado_criado.Errors);
                 }
+
+                if(!string.IsNullOrEmpty(Model.Perfil))
+                {
+                    await _userManager.AddToRoleAsync(NovoUsuario, Model.Perfil);
+                }
+
 
                 await _contextoDB.SaveChangesAsync();
 
